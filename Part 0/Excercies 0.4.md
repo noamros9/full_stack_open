@@ -1,3 +1,5 @@
-sequenceDiagram
-    participant browser
-    participant server
+```mermaid
+    sequenceDiagram
+        participant browser
+        participant server
+```
