@@ -29,7 +29,9 @@ const App = () => {
             {votes[selected]} people liked this anecdote<br />
             <Button onClick={() => setSelected(chooseRandomAnecdote(anecdotes))} text="Next Anecdote" />
             <Button onClick={handleVote} text="Like" /><br />
-            {/* <h1>Anecdote with most votes</h1> */}
+            <h1>Anecdote with most votes</h1>
+            {anecdotes[votes.indexOf(Math.max(...votes))]}<br />
+            {Math.max(...votes)} people liked this anecdote
         </div>
     )
 }
