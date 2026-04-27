@@ -4,7 +4,8 @@ import App from './App'
 import CourseInfoApp from './part1/courseinfo/CourseInfoApp'
 import AnecdotesApp from './part1/anecdotes/AnecdotesApp'
 import UnicafeApp from './part1/unicafe/UnicafeApp'
-import NotesApp from './part2/NotesApp'
+import NotesApp from './part2/notes/NotesApp'
+import PhonebookApp from './part2/phonebook/PhonebookApp'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -19,24 +20,10 @@ switch (import.meta.env.VITE_ROOT_APP) {
         root.render(<UnicafeApp />);
         break;
     case 'NotesApp':
-        const notes = [
-            {
-                id: 1,
-                content: 'HTML is easy',
-                important: true
-            },
-            {
-                id: 2,
-                content: 'Browser can execute only JavaScript',
-                important: false
-            },
-            {
-                id: 3,
-                content: 'GET and POST are the most important methods of HTTP protocol',
-                important: true
-            }
-        ]
-        root.render(<NotesApp notes={notes} />);
+        root.render(<NotesApp />);
+        break;
+    case 'PhonebookApp':
+        root.render(<PhonebookApp />);
         break;
     default:
         root.render(<App />);
