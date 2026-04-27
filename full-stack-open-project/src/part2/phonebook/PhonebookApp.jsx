@@ -2,15 +2,16 @@ import { useState } from 'react'
 
 const App = () => {
     const [persons, setPersons] = useState([
-        {
-            name: 'Arto Hellas',
-            number: '040-123456',
-            id: 1
-        },
+        { name: 'Arto Hellas', number: '040-123456', id: 1 },
+        { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+        { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+        { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
     ])
+
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
+    const [newSearch, setNewSearch] = useState('')
 
     const addPerson = (e) => {
         e.preventDefault()
@@ -37,10 +38,18 @@ const App = () => {
         setNewNumber(newPersonForm.elements.number.value)
     }
 
+    const handleSearch = (e) => {
+        setNewSearch(e.target.value)
+    }
+
 
     return (
         <div>
             <h2>Phonebook</h2>
+            <div>
+                Search for: <input name="search" value={newSearch} onChange={handleSearch} />
+            </div>
+            <h3>Add a New Contact</h3>
             <form onSubmit={addPerson}>
                 <div>
                     <input name="name" placeholder="Insert name here" value={newName} onChange={handlePersonChange} />
@@ -55,9 +64,11 @@ const App = () => {
 
             <h2>Numbers</h2>
             <ul>
-                {persons.map(person =>
-                    <li key={person.id}>{person.name} - {person.number}</li>
-                )}
+                {persons
+                    .filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
+                    .map(person =>
+                        <li key={person.id}>{person.name} - {person.number}</li>
+                    )}
             </ul>
         </div>
     )
