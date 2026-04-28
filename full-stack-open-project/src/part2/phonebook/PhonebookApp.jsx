@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import FilterPhonebook from '../../components/Phonebook/FilterPhonebook'
+import PhonebookRegistrationForm from '../../components/Phonebook/PhonebookRegistrationForm'
+import PersonsList from '../../components/Phonebook/PersonsList'
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -46,30 +49,16 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
-            <div>
-                Search for: <input name="search" value={newSearch} onChange={handleSearch} />
-            </div>
+            <FilterPhonebook newSearch={newSearch} handleSearch={handleSearch} />
             <h3>Add a New Contact</h3>
-            <form onSubmit={addPerson}>
-                <div>
-                    <input name="name" placeholder="Insert name here" value={newName} onChange={handlePersonChange} />
-                </div>
-                <div>
-                    <input name="number" placeholder="Insert number here" value={newNumber} onChange={handlePersonChange} />
-                </div>
-                <div>
-                    <button type="submit">Add</button>
-                </div>
-            </form>
-
+            <PhonebookRegistrationForm
+                addPerson={addPerson}
+                newName={newName}
+                newNumber={newNumber}
+                handlePersonChange={handlePersonChange}
+            />
             <h2>Numbers</h2>
-            <ul>
-                {persons
-                    .filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
-                    .map(person =>
-                        <li key={person.id}>{person.name} - {person.number}</li>
-                    )}
-            </ul>
+            <PersonsList persons={persons} newSearch={newSearch} />
         </div>
     )
 }
