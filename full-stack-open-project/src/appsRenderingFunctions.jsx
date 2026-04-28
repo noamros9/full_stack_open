@@ -27,11 +27,13 @@ export const renderUnicafeApp = () => {
 }
 
 export const renderNotesApp = () => {
-    const promise = axios.get('http://localhost:3001/notes')
-    promise.then(response => {
-        console.log(response.data)
-    })
-    root.render(<NotesApp />);
+    axios
+        .get('http://localhost:3001/notes')
+        .then(response => {
+            const notes = response.data
+            root.render(<NotesApp notes={notes} />);
+        })
+
 }
 
 export const renderPhonebookApp = () => {
