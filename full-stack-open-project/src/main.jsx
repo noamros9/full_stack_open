@@ -1,31 +1,22 @@
-import ReactDOM from 'react-dom/client'
-
-import App from './App'
-import CourseInfoApp from './part1/courseinfo/CourseInfoApp'
-import AnecdotesApp from './part1/anecdotes/AnecdotesApp'
-import UnicafeApp from './part1/unicafe/UnicafeApp'
-import NotesApp from './part2/notes/NotesApp'
-import PhonebookApp from './part2/phonebook/PhonebookApp'
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import * as apps from './appsRenderingFunctions'
 
 switch (import.meta.env.VITE_ROOT_APP) {
     case 'CourseInfoApp':
-        root.render(<CourseInfoApp />);
+        apps.renderCourseInfoApp();
         break;
     case 'AnecdotesApp':
-        root.render(<AnecdotesApp />);
+        apps.renderAnecdotesApp();
         break;
     case 'UnicafeApp':
-        root.render(<UnicafeApp />);
+        apps.renderUnicafeApp();
         break;
     case 'NotesApp':
-        root.render(<NotesApp />);
+        apps.renderNotesApp();
         break;
     case 'PhonebookApp':
-        root.render(<PhonebookApp />);
+        apps.renderPhonebookApp();
         break;
     default:
-        root.render(<App />);
+        apps.renderApp();
 }
 
