@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import NotesList from '../../components/Notes/NotesList'
 
-const App = ({ notes }) => {
+const App = () => {
     return (
-        <NotesList notes={notes} />
+        <NotesList />
     )
 }
 

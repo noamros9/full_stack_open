@@ -27,13 +27,7 @@ export const renderUnicafeApp = () => {
 }
 
 export const renderNotesApp = () => {
-    axios
-        .get('http://localhost:3001/notes')
-        .then(response => {
-            const notes = response.data
-            root.render(<NotesApp notes={notes} />);
-        })
-
+    root.render(<NotesApp />);
 }
 
 export const renderPhonebookApp = () => {
