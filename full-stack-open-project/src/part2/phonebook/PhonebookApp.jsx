@@ -52,6 +52,16 @@ const App = () => {
         setNewSearch(e.target.value)
     }
 
+    const deletePerson = (person) => {
+        if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
+            phonebookService
+                .deletePerson(person.id)
+                .then(() => {
+                    setPersons(persons.filter(p => p.id !== person.id))
+                })
+        }
+    }
+
 
     return (
         <div>
@@ -65,7 +75,7 @@ const App = () => {
                 handlePersonChange={handlePersonChange}
             />
             <h2>Numbers</h2>
-            <PersonsList persons={persons} newSearch={newSearch} />
+            <PersonsList persons={persons} newSearch={newSearch} deletePerson={deletePerson} />
         </div>
     )
 }
