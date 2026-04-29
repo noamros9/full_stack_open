@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import phonebookService from '../../services/phonebook'
 import FilterPhonebook from '../../components/Phonebook/FilterPhonebook'
 import PhonebookRegistrationForm from '../../components/Phonebook/PhonebookRegistrationForm'
 import PersonsList from '../../components/Phonebook/PersonsList'
@@ -11,10 +12,10 @@ const App = () => {
     const [newSearch, setNewSearch] = useState('')
 
     useEffect(() => {
-        axios
-            .get('http://localhost:3001/persons')
-            .then(response => {
-                setPersons(response.data)
+        phonebookService
+            .getAll()
+            .then(initialPersons => {
+                setPersons(initialPersons)
             })
     }, [])
 
@@ -31,9 +32,13 @@ const App = () => {
             id: persons.length + 1,
         }
 
-        setPersons(persons.concat(personObject))
-        setNewName('')
-        setNewNumber('')
+        phonebookService
+            .create(personObject)
+            .then(returnedPerson => {
+                setPersons(persons.concat(returnedPerson))
+                setNewName('')
+                setNewNumber('')
+            })
     }
 
 
