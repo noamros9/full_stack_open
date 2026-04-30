@@ -29,13 +29,22 @@ const App = () => {
             .update(person.id, changedPerson)
             .then(returnedPerson => {
                 setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
+                setNotificationMessage(`Updated ${person.name}'s number`)
+                setNotificationClassName('success')
+                setTimeout(() => {
+                    setNotificationMessage(null)
+                    setNotificationClassName('')
+                }, 5000)
             })
-        setNotificationMessage(`Updated ${person.name}'s number`)
-        setNotificationClassName('success')
-        setTimeout(() => {
-            setNotificationMessage(null)
-            setNotificationClassName('')
-        }, 5000)
+            .catch(error => {
+                setNotificationMessage(`Information of ${person.name} has already been removed from server`)
+                setNotificationClassName('error')
+                setTimeout(() => {
+                    setNotificationMessage(null)
+                    setNotificationClassName('')
+                }, 5000)
+                setPersons(persons.filter(p => p.id !== person.id))
+            })
         return
     }
 
