@@ -4,11 +4,14 @@ import phonebookService from '../../services/phonebook'
 import FilterPhonebook from '../../components/Phonebook/FilterPhonebook'
 import PhonebookRegistrationForm from '../../components/Phonebook/PhonebookRegistrationForm'
 import PersonsList from '../../components/Phonebook/PersonsList'
+import Notification from '../../components/Notification'
 
 const App = () => {
     const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
+    const [notificationMessage, setNotificationMessage] = useState(null)
+    const [notificationClassName, setNotificationClassName] = useState('')
     const [newSearch, setNewSearch] = useState('')
 
     useEffect(() => {
@@ -27,6 +30,12 @@ const App = () => {
             .then(returnedPerson => {
                 setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
             })
+        setNotificationMessage(`Updated ${person.name}'s number`)
+        setNotificationClassName('success')
+        setTimeout(() => {
+            setNotificationMessage(null)
+            setNotificationClassName('')
+        }, 5000)
         return
     }
 
@@ -47,6 +56,12 @@ const App = () => {
                 setNewName('')
                 setNewNumber('')
             })
+        setNotificationMessage(`Added ${personObject.name}`)
+        setNotificationClassName('success')
+        setTimeout(() => {
+            setNotificationMessage(null)
+            setNotificationClassName('')
+        }, 5000)
     }
 
 
@@ -67,6 +82,12 @@ const App = () => {
                 .then(() => {
                     setPersons(persons.filter(p => p.id !== person.id))
                 })
+            setNotificationMessage(`Deleted ${person.name}`)
+            setNotificationClassName('success')
+            setTimeout(() => {
+                setNotificationMessage(null)
+                setNotificationClassName('')
+            }, 5000)
         }
     }
 
@@ -74,6 +95,7 @@ const App = () => {
     return (
         <div>
             <h2>Phonebook</h2>
+            <Notification message={notificationMessage} className={notificationClassName} />
             <FilterPhonebook newSearch={newSearch} handleSearch={handleSearch} />
             <h3>Add a New Contact</h3>
             <PhonebookRegistrationForm

@@ -8,7 +8,8 @@ const NotesList = () => {
     const [notes, setNotes] = useState([])
     const [newNote, setNewNote] = useState('')
     const [showAll, setShowAll] = useState(true)
-    const [errorMessage, setErrorMessage] = useState('Something went wrong...')
+    const [notificationMessage, setNotificationMessage] = useState(null)
+    const [notificationClassName, setNotificationClassName] = useState('')
 
     useEffect(() => {
         noteService
@@ -48,11 +49,11 @@ const NotesList = () => {
                 setNotes(notes.map(note => note.id !== id ? note : returnedNote))
             })
             .catch(error => {
-                setErrorMessage(
-                    `Note '${note.content}' was already removed from server`
-                )
+                setNotificationMessage(`Note '${note.content}' was already removed from server`)
+                setNotificationClassName('error')
                 setTimeout(() => {
-                    setErrorMessage(null)
+                    setNotificationMessage(null)
+                    setNotificationClassName('')
                 }, 5000)
                 setNotes(notes.filter(n => n.id !== id))
             })
@@ -61,6 +62,7 @@ const NotesList = () => {
     return (
         <div>
             <h1>Notes</h1>
+            <Notification message={notificationMessage} className={notificationClassName} />
             <div>
                 <button onClick={() => setShowAll(!showAll)}>
                     show {showAll ? 'important notes only' : 'all notes'}
