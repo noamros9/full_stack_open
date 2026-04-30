@@ -35,13 +35,11 @@ const App = () => {
         if (persons.some(person => person.name === newName)) {
             return updateNumber(persons.find(p => p.name === newName))
         }
-
         const personObject = {
             name: newName,
             number: newNumber,
             id: persons.length + 1,
         }
-
         phonebookService
             .create(personObject)
             .then(returnedPerson => {
