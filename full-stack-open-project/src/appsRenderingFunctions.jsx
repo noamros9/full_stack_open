@@ -9,27 +9,42 @@ import AnecdotesApp from './part1/anecdotes/AnecdotesApp'
 import UnicafeApp from './part1/unicafe/UnicafeApp'
 import NotesApp from './part2/notes/NotesApp'
 import PhonebookApp from './part2/phonebook/PhonebookApp'
+import CountriesInfoApp from './part2/countriesInfo/CountriesInfoApp'
 
-export const renderApp = () => {
+const renderApp = () => {
     root.render(<App />);
 }
 
-export const renderCourseInfoApp = () => {
+const renderCourseInfoApp = () => {
     root.render(<CourseInfoApp />);
 }
 
-export const renderAnecdotesApp = () => {
+const renderAnecdotesApp = () => {
     root.render(<AnecdotesApp />);
 }
 
-export const renderUnicafeApp = () => {
+const renderUnicafeApp = () => {
     root.render(<UnicafeApp />);
 }
 
-export const renderNotesApp = () => {
+const renderNotesApp = () => {
     root.render(<NotesApp />);
 }
 
-export const renderPhonebookApp = () => {
+const renderPhonebookApp = () => {
     root.render(<PhonebookApp />);
+}
+
+const renderCountriesInfoApp = () => {
+    root.render(<CountriesInfoApp />);
+}
+
+export {
+    renderApp,
+    renderCourseInfoApp,
+    renderAnecdotesApp,
+    renderUnicafeApp,
+    renderNotesApp,
+    renderPhonebookApp,
+    renderCountriesInfoApp
 }

@@ -17,6 +17,9 @@ switch (import.meta.env.VITE_ROOT_APP) {
     case 'PhonebookApp':
         apps.renderPhonebookApp();
         break;
+    case 'CountriesInfoApp':
+        apps.renderCountriesInfoApp();
+        break;
     default:
         apps.renderApp();
 }
