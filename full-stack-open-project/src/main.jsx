@@ -1,4 +1,5 @@
 import * as apps from './appsRenderingFunctions'
+import './index.css'
 
 switch (import.meta.env.VITE_ROOT_APP) {
     case 'CourseInfoApp':
