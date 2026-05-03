@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import countriesInfoService from '../../services/countriesInfo'
 import FilterCountries from '../../components/CountriesInfo/FilterCountries'
-import CountriesList from '../../part2/countriesInfo/CountriesList'
+import CountriesList from '../../components/CountriesInfo/CountriesList'
 
 const App = () => {
     const [newSearch, setNewSearch] = useState('')
