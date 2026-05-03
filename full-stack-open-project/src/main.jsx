@@ -1,5 +1,26 @@
-import ReactDOM from 'react-dom/client'
+import * as apps from './appsRenderingFunctions'
+import './index.css'
 
-import App from './part1/anecdotes/AnecdotesApp'
+switch (import.meta.env.VITE_ROOT_APP) {
+    case 'CourseInfoApp':
+        apps.renderCourseInfoApp();
+        break;
+    case 'AnecdotesApp':
+        apps.renderAnecdotesApp();
+        break;
+    case 'UnicafeApp':
+        apps.renderUnicafeApp();
+        break;
+    case 'NotesApp':
+        apps.renderNotesApp();
+        break;
+    case 'PhonebookApp':
+        apps.renderPhonebookApp();
+        break;
+    case 'CountriesInfoApp':
+        apps.renderCountriesInfoApp();
+        break;
+    default:
+        apps.renderApp();
+}
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />)    
