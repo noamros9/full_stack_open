@@ -6,7 +6,7 @@ const PersonsList = ({ persons, newSearch, deletePerson }) => {
             {persons
                 .filter(person => person.name.toLowerCase().includes(newSearch.toLowerCase()))
                 .map(person =>
-                    <li key={person.id}>{person.name} - {person.number}
+                    <li key={person.id} class="person">{person.name} - {person.number}
                         <button onClick={() => deletePerson(person)}>delete</button>
                     </li>
                 )}

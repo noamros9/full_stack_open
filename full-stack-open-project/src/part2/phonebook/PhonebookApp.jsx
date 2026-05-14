@@ -103,7 +103,7 @@ const App = () => {
 
     return (
         <div>
-            <h2>Phonebook</h2>
+            <h1>Phonebook</h1>
             <Notification message={notificationMessage} className={notificationClassName} />
             <FilterPhonebook newSearch={newSearch} handleSearch={handleSearch} />
             <h3>Add a New Contact</h3>
