@@ -1,38 +1,44 @@
+require('dotenv/config')
 const mongoose = require('mongoose')
 
-if (process.argv.length < 3) {
-    console.log('give password as argument')
-    process.exit(1)
-}
+const username = process.env.MONGO_USERNAME;
+const password = process.env.MONGO_PASSWORD;
+const clusterAddress = process.env.MONGO_CLUSTER_ADDRESS;
+const dbName = process.env.MONGO_DB_NAME;
 
-const password = process.argv[2]
-
-const url = `mongodb+srv://noamros9_db_user:${password}@cluster0.kal8bwk.mongodb.net/notesApp?retryWrites=true&w=majority&appName=Cluster0`
+const url = `mongodb+srv://${username}:${password}@${clusterAddress}/${dbName}?retryWrites=true&w=majority`;
 
 mongoose.set('strictQuery', false)
-
 mongoose.connect(url, { family: 4 })
 
 const noteSchema = new mongoose.Schema({
     content: String,
-    important: Boolean,
+    important: Boolean
 })
-
 const Note = mongoose.model('Note', noteSchema)
 
-// const note = new Note({
-//     content: 'HTML is easy',
-//     important: true,
-// })
 
-// note.save().then(result => {
-//     console.log('note saved!')
-//     mongoose.connection.close()
-// })
+if (process.argv.length === 4) {
 
-Note.find({}).then(result => {
-    result.forEach(note => {
-        console.log(note)
+    const content = process.argv[2]
+    const important = process.argv[3] === 'true'
+
+    const note = new Note({
+        content,
+        important
     })
-    mongoose.connection.close()
-})
+
+    note.save().then(result => {
+        console.log(`added ${content} to notes`)
+        mongoose.connection.close()
+    })
+} else {
+    Note.find({})
+        .then(result => {
+            console.log('notes:')
+            result.forEach(note => {
+                console.log(`${note.content} ${note.important}`)
+            })
+            mongoose.connection.close()
+        })
+} 
