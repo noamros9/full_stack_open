@@ -1,22 +1,5 @@
-require('dotenv/config')
 const mongoose = require('mongoose')
-
-const username = process.env.MONGO_USERNAME;
-const password = process.env.MONGO_PASSWORD;
-const clusterAddress = process.env.MONGO_CLUSTER_ADDRESS;
-const dbName = process.env.MONGO_DB_NAME;
-
-const url = `mongodb+srv://${username}:${password}@${clusterAddress}/${dbName}?retryWrites=true&w=majority`;
-
-mongoose.set('strictQuery', false)
-mongoose.connect(url, { family: 4 })
-
-const personSchema = new mongoose.Schema({
-    name: String,
-    number: String,
-})
-const Person = mongoose.model('Person', personSchema)
-
+const Person = require('./models/person')
 
 if (process.argv.length === 4) {
 

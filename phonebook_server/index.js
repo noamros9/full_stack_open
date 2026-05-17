@@ -6,29 +6,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('dist'))
 
-let persons = [
-    {
-        name: "Arto Hellas",
-        number: "040-123456",
-        id: "1"
-    },
-    {
-        name: "Ada Lovelace",
-        number: "39-44-5323523",
-        id: "2"
-    },
-    {
-        name: "Dan Abramov",
-        number: "12-43-234345",
-        id: "3"
-    },
-    {
-        name: "Mary Poppendieck",
-        number: "39-23-6423122",
-        id: "4"
-    }
-]
-
 
 const generateId = () => {
     const maxId = persons.length > 0
@@ -42,24 +19,39 @@ app.get('/', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person.find({}).then(persons => {
+        response.json(persons)
+    })
+})
+
+app.get('/info', (request, response) => {
+    Person.countDocuments({}).then(count => {
+        response.json({
+            info: `Phonebook has info for ${count} people`,
+            total: count
+        })
+    })
 })
 
 app.get('/api/persons/:id', (request, response) => {
     const id = request.params.id
-    const person = persons.find(person => person.id === id)
-    if (!person) {
-        response.status(404).end()
-    } else {
-        response.json(person)
-    }
+    Person.findById(id).then(person => {
+        if (!person) {
+            response.status(404).end()
+        } else {
+            response.json(person)
+        }
+    })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
     const id = request.params.id
-    persons = persons.filter(person => person.id !== id)
-
-    response.status(204).end()
+    Person.findByIdAndDelete(id).then(() => {
+        response.status(204).end()
+    }).catch(error => {
+        console.log(error)
+        response.status(400).send({ error: 'malformatted id' })
+    })
 })
 
 app.post('/api/persons', (request, response) => {
@@ -77,9 +69,10 @@ app.post('/api/persons', (request, response) => {
         id: generateId(),
     }
 
-    persons = persons.concat(person)
-
-    response.json(person)
+    const newPerson = new Person(person)
+    newPerson.save().then(savedPerson => {
+        response.json(savedPerson)
+    })
 })
 
 
