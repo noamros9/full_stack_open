@@ -8,10 +8,12 @@ app.use(express.json())
 app.use(express.static('dist'))
 
 const generateId = () => {
-    const maxId = notes.length > 0
-        ? Math.max(...notes.map(n => Number(n.id)))
-        : 0
-    return String(maxId + 1)
+    return Note.find({}).then(notes => {
+        const maxId = notes.length > 0
+            ? Math.max(...notes.map(n => Number(n.id)))
+            : 0
+        return String(maxId + 1)
+    })
 }
 
 app.get('/', (request, response) => {

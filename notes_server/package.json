@@ -11,7 +11,7 @@
     "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "@powershell Remove-Item -Recurse -Force dist && cd ../full-stack-open-project && npm run build && @powershell Copy-Item dist -Recurse ../notes_server",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push origin part3 && npm start"
+    "deploy:full": "node deploy.js"
   },
   "dependencies": {
     "cors": "^2.8.6",
