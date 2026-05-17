@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const Person = require('./models/person')
 
 app.use(cors())
 app.use(express.json())
@@ -8,6 +9,7 @@ app.use(express.static('dist'))
 
 
 const generateId = () => {
+    const persons = Person.find({})
     const maxId = persons.length > 0
         ? Math.max(...persons.map(p => Number(p.id)))
         : 0
@@ -66,7 +68,6 @@ app.post('/api/persons', (request, response) => {
     const person = {
         name: body.name,
         number: body.number,
-        id: generateId(),
     }
 
     const newPerson = new Person(person)
